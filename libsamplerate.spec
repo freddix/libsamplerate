@@ -1,7 +1,7 @@
 Summary:	Sample Rate Converter library
 Name:		libsamplerate
 Version:	0.1.8
-Release:	1
+Release:	2
 License:	GPL
 Group:		Libraries
 #Source0Download:	http://www.mega-nerd.com/SRC/download.html
@@ -28,6 +28,7 @@ output sample rates.
 Summary:	Header file for libsamplerate library
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	libsndfile-devel >= 1.0.10
 
 %description devel
 Header file for libsamplerate library.
@@ -60,6 +61,8 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/*.la
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -75,7 +78,6 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/lib*.so
-%{_libdir}/lib*.la
 %{_includedir}/*.h
 %{_pkgconfigdir}/*.pc
 
